@@ -1,5 +1,7 @@
 import {
   AfterContentInit,
+  afterNextRender,
+  afterRender,
   Component,
   contentChild,
   ContentChild,
@@ -34,12 +36,19 @@ export class ControlComponent implements AfterContentInit {
   // @ContentChild('input') private control?: ElementRef<
   //   HTMLInputElement | HTMLTextAreaElement
   // >;
-
+  constructor() {
+    afterRender(() => {
+      console.log('After render');
+    });
+    afterNextRender(() => {
+      console.log('After next render');
+    });
+  }
   private control =
     contentChild<ElementRef<HTMLInputElement | HTMLTextAreaElement>>('input');
 
   ngAfterContentInit() {
-    console.log(this.control);
+    console.log('after content init');
   }
   onClick() {
     console.log('Clicked!');
